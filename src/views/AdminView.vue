@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-
+  <div class="admin">
+    管理页
   </div>
 </template>
 

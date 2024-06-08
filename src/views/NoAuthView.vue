@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-
+  <div class="admin">
+    无权限
   </div>
 </template>
 
