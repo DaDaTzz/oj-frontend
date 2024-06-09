@@ -42,6 +42,10 @@ import GlobalHeader from "@/components/GlobalHeader.vue";
   left: 0;
   right: 0;
   text-align: center;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 </style>

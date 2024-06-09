@@ -33,6 +33,8 @@ import checkAccess from "@/access/checkAccess";
 
 const router = useRouter()
 const store = useStore();
+
+// 获取当前登录用户
 const loginUser = store.state.user.loginUser;
 
 // 展示在菜单的路由数组
