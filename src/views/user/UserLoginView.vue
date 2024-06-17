@@ -27,9 +27,11 @@ import { userLoginUsingPost } from "@/api/userController";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
 import {useStore} from "vuex";
+import {useLoginUserStore} from "@/store/userStore";
 
 const router = useRouter()
-const store = useStore();
+const loginUserStore = useLoginUserStore()
+
 
 const form = reactive({
   userAccount: '',
@@ -42,7 +44,7 @@ const form = reactive({
 const handleSubmit = async () =>{
   const res = await userLoginUsingPost(form);
   if(res.data.code === 0) {
-    await store.dispatch('user/getLoginUser');
+    await loginUserStore.fetchLoginUser();
     Message.success("登录成功");
     router.push({
       path:'/',

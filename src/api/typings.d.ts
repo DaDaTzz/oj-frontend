@@ -35,6 +35,24 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageQuestion_ = {
+    code?: number;
+    data?: PageQuestion_;
+    message?: string;
+  };
+
+  type BaseResponsePageQuestionSubmitVO_ = {
+    code?: number;
+    data?: PageQuestionSubmitVO_;
+    message?: string;
+  };
+
+  type BaseResponsePageQuestionVO_ = {
+    code?: number;
+    data?: PageQuestionVO_;
+    message?: string;
+  };
+
   type BaseResponsePageUser_ = {
     code?: number;
     data?: PageUser_;
@@ -50,6 +68,12 @@ declare namespace API {
   type BaseResponsePostVO_ = {
     code?: number;
     data?: PostVO;
+    message?: string;
+  };
+
+  type BaseResponseQuestionVO_ = {
+    code?: number;
+    data?: QuestionVO;
     message?: string;
   };
 
@@ -71,22 +95,16 @@ declare namespace API {
     message?: string;
   };
 
-  type checkUsingGETParams = {
-    /** echostr */
-    echostr?: string;
-    /** nonce */
-    nonce?: string;
-    /** signature */
-    signature?: string;
-    /** timestamp */
-    timestamp?: string;
-  };
-
   type DeleteRequest = {
     id?: number;
   };
 
   type getPostVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
+  type getQuestionVOByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -99,6 +117,23 @@ declare namespace API {
   type getUserVOByIdUsingGETParams = {
     /** id */
     id?: number;
+  };
+
+  type JudgeCase = {
+    input?: string;
+    output?: string;
+  };
+
+  type JudgeConfig = {
+    memoryLimit?: number;
+    stackLimit?: number;
+    timeLimit?: number;
+  };
+
+  type JudgeInfo = {
+    memory?: number;
+    message?: string;
+    time?: number;
   };
 
   type LoginUserVO = {
@@ -137,6 +172,45 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: PostVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageQuestion_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Question[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageQuestionSubmitVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: QuestionSubmitVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageQuestionVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: QuestionVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;
@@ -242,6 +316,120 @@ declare namespace API {
     hasThumb?: boolean;
     id?: number;
     tagList?: string[];
+    thumbNum?: number;
+    title?: string;
+    updateTime?: string;
+    user?: UserVO;
+    userId?: number;
+  };
+
+  type Question = {
+    acceptedNum?: number;
+    answer?: string;
+    content?: string;
+    createTime?: string;
+    favourNum?: number;
+    id?: number;
+    isDelete?: number;
+    judgeCase?: string;
+    judgeConfig?: string;
+    submitNum?: number;
+    tags?: string;
+    thumbNum?: number;
+    title?: string;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type QuestionAddRequest = {
+    answer?: string;
+    content?: string;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+    tags?: string[];
+    title?: string;
+  };
+
+  type QuestionEditRequest = {
+    answer?: string;
+    content?: string;
+    id?: number;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+    tags?: string[];
+    title?: string;
+  };
+
+  type QuestionQueryRequest = {
+    answer?: string;
+    content?: string;
+    current?: number;
+    id?: number;
+    pageSize?: number;
+    searchText?: string;
+    sortField?: string;
+    sortOrder?: string;
+    tags?: string[];
+    title?: string;
+    userId?: number;
+  };
+
+  type QuestionSubmitAddRequest = {
+    code?: string;
+    language?: string;
+    questionId?: number;
+  };
+
+  type QuestionSubmitQueryRequest = {
+    code?: string;
+    current?: number;
+    id?: number;
+    judgeInfo?: JudgeInfo;
+    language?: string;
+    pageSize?: number;
+    questionId?: number;
+    searchText?: string;
+    sortField?: string;
+    sortOrder?: string;
+    status?: number;
+    userId?: number;
+  };
+
+  type QuestionSubmitVO = {
+    code?: string;
+    createTime?: string;
+    id?: number;
+    judgeInfo?: JudgeInfo;
+    language?: string;
+    questionId?: number;
+    questionVO?: QuestionVO;
+    status?: number;
+    updateTime?: string;
+    user?: UserVO;
+    userId?: number;
+  };
+
+  type QuestionUpdateRequest = {
+    answer?: string;
+    content?: string;
+    id?: number;
+    judgeCase?: JudgeCase[];
+    judgeConfig?: JudgeConfig;
+    tags?: string[];
+    title?: string;
+  };
+
+  type QuestionVO = {
+    acceptedNum?: number;
+    content?: string;
+    createTime?: string;
+    favourNum?: number;
+    hasFavour?: boolean;
+    hasThumb?: boolean;
+    id?: number;
+    judgeConfig?: JudgeConfig;
+    submitNum?: number;
+    tags?: string[];
     thumbNum?: number;
     title?: string;
     updateTime?: string;

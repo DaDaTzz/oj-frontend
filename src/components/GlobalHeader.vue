@@ -17,7 +17,7 @@
       </a-col>
       <a-col flex="100px">
         <div>
-          {{store.state.user?.loginUser?.userName ?? "未登录"}}
+          {{ loginUserStore.loginUser.userName ?? "匿名用户"}}
         </div>
       </a-col>
     </a-row>
@@ -28,24 +28,30 @@
 import {routes} from '../router/routes';
 import {useRouter} from "vue-router";
 import {computed, ref} from "vue";
-import {useStore} from "vuex";
 import checkAccess from "@/access/checkAccess";
+import { useLoginUserStore } from "@/store/userStore";
+
 
 const router = useRouter()
-const store = useStore();
 
-// 获取当前登录用户
-const loginUser = store.state.user.loginUser;
+const loginUserStore = useLoginUserStore()
 
-// 展示在菜单的路由数组
+
+// 当前选中的菜单项
+const selectedKeys = ref(["/"]);
+// 路由跳转时，自动更新选中的菜单项
+router.afterEach((to) => {
+  selectedKeys.value = [to.path]
+})
+
+// 展示在菜单栏的路由数组
 const visibleRoutes = computed(() =>{
-  return routes.filter((item, index) =>{
-    // 隐藏在菜单的路由
-    if(item.meta?.hideInMenu){
+  return routes.filter((item) => {
+    if (item.meta?.hideInMenu){
       return false;
     }
-    // 根据权限过滤菜单
-    if(!checkAccess(loginUser, item.meta?.access)){
+    // 根据权限过滤菜单栏
+    if(!checkAccess(loginUserStore.loginUser, item.meta?.access)){
       return false;
     }
     return true;
@@ -53,21 +59,15 @@ const visibleRoutes = computed(() =>{
 })
 
 
-// 默认主页
-const selectKeys = ref(['/'])
-
-// 路由跳转时，更新选中的菜单项
-router.afterEach((to, from, next) => {
-  selectKeys.value = [to.path];
-})
-
-
-const doMenuClick = (key) =>{
+/**
+ * 点击菜单跳转页面
+ * @param Key
+ */
+const doMenuClick = (Key) =>{
   router.push({
-    path:key,
+    path: Key
   })
 }
-
 
 
 </script>
