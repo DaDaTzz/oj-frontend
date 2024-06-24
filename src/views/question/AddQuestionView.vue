@@ -101,8 +101,13 @@
 import { onMounted, ref } from "vue";
 import message from "@arco-design/web-vue/es/message";
 import { useRoute } from "vue-router";
-import {addQuestionUsingPost, getQuestionVoByIdUsingGet, updateQuestionUsingPost} from "@/api/questionController";
-import MdEditor from "@/views/MdEditor.vue";
+import {
+  addQuestionUsingPost,
+  getQuestionByIdUsingGet,
+  getQuestionVoByIdUsingGet,
+  updateQuestionUsingPost
+} from "@/api/questionController";
+import MdEditor from "@/components/MdEditor.vue";
 
 const route = useRoute();
 // 如果页面地址包含 update，视为更新页面
@@ -134,9 +139,9 @@ const loadData = async () => {
   if (!id) {
     return;
   }
-  const res = await getQuestionVoByIdUsingGet(
-      id as any
-  );
+  const res = await getQuestionByIdUsingGet({
+    id: id as any,
+  })
   if (res.data.code === 0) {
     form.value = res.data.data as any;
     // json 转 js 对象

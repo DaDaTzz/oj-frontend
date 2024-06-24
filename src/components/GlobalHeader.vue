@@ -16,9 +16,11 @@
         </div>
       </a-col>
       <a-col flex="100px">
-        <div>
-          {{ loginUserStore.loginUser.userName ?? "匿名用户"}}
+        <div v-if="loginUserStore.loginUser?.userName">
+          {{ loginUserStore.loginUser?.userName }}
+          <a-button status="warning" @click="doLogout">注销</a-button>
         </div>
+        <a-button type="primary" v-else href="/user/login">登录</a-button>
       </a-col>
     </a-row>
 
@@ -26,10 +28,12 @@
 
 <script setup>
 import {routes} from '../router/routes';
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {computed, ref} from "vue";
 import checkAccess from "@/access/checkAccess";
 import { useLoginUserStore } from "@/store/userStore";
+import {userLogoutUsingPost} from "@/api/userController";
+import message from "@arco-design/web-vue/es/message";
 
 
 const router = useRouter()
@@ -67,6 +71,21 @@ const doMenuClick = (Key) =>{
   router.push({
     path: Key
   })
+}
+
+const route = useRoute()
+
+const doLogout = async () =>{
+  const res = await userLogoutUsingPost();
+  if(res.data.code === 0){
+    message.success('注销成功')
+    loginUserStore.setLoginUser(null);
+    await router.push({
+      path:"/user/login"
+    })
+  }else {
+    message.error('注销失败,' + res.data.message)
+  }
 }
 
 

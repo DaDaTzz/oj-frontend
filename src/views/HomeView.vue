@@ -9,8 +9,8 @@
 <script setup lang="ts">
 
 import {defineComponent, ref} from "vue";
-import MdEditor from "@/views/MdEditor.vue";
-import CodeEditor from "@/views/user/CodeEditor.vue";
+import MdEditor from "@/components/MdEditor.vue";
+import CodeEditor from "@/components/CodeEditor.vue";
 
 defineComponent({
   components: {MdEditor}
